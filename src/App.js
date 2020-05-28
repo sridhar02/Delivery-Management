@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Link } from "react-router-dom";
+
+import "./App.css";
+import { Button, makeStyles } from "@material-ui/core";
+
+const useAppStyles = makeStyles((theme) => ({
+  button: {
+    marginTop: "10px",
+  },
+}));
 
 function App() {
+  const classes = useAppStyles();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Adithya SunShine Delivery Management</h1>
+      <div>
+        <Link to="/entery">
+          <Button color="primary" variant="contained">
+            Entery
+          </Button>
+        </Link>
+      </div>
+      <div className={classes.button}>
+        <Link to="/handOver">
+          <Button color="primary" variant="contained">
+            Hand Over
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
