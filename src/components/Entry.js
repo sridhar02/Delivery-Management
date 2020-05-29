@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Button, makeStyles } from "@material-ui/core";
+import HomeIcon from "@material-ui/icons/Home";
+import { Button, makeStyles, Typography, Link } from "@material-ui/core";
 
 const Blocks = [
   ["A", "B", "C"],
@@ -47,12 +48,13 @@ const useEnteryStyles = makeStyles((theme) => ({
   agent: {
     margin: theme.spacing(1.5),
   },
+  background: {},
 }));
 
 export function FlatBlocks({ handleChange, classes }) {
   return (
     <>
-      <h1>FLAT BLOCK </h1>
+      <Typography variant="h6">FLAT BLOCK </Typography>
       {Blocks.map((blocks, index) => (
         <div key={index}>
           {blocks.map((block, index) => (
@@ -75,7 +77,7 @@ export function FlatBlocks({ handleChange, classes }) {
 export function FlatNumbersComponent({ handleFlatNumber, classes }) {
   return (
     <>
-      <h1>FLAT NUMBER</h1>
+      <Typography variant="h6">FLAT NUMBER</Typography>
       {FlatNumbers.map((flatNumbers, index) => (
         <div key={index}>
           {flatNumbers.map((flatNumber, index) => (
@@ -124,8 +126,8 @@ export default function Entry() {
     setFlatBlock("");
     setFlatNumber("");
     setSelectedAgent("");
-    setSelectedBlock(true);
-    setSelectedFlat(true);
+    setSelectedBlock(false);
+    setSelectedFlat(false);
     setSelectedAgent(false);
   };
 
@@ -142,10 +144,15 @@ export default function Entry() {
   };
 
   return (
-    <div>
-      <h2>Entry </h2>
+    <div className={classes.background}>
+      <div>
+        <Link href="/">
+          <HomeIcon />{" "}
+        </Link>
+      </div>
+      <Typography variant="h5">Entry </Typography>
       <div className={classes.selectedFlat}>
-        <h2> {flatBlock + flatNumber}</h2>
+        <Typography variant="h5"> {flatBlock + flatNumber}</Typography>
         <Button
           onClick={handleClearAll}
           color="primary"
@@ -165,7 +172,7 @@ export default function Entry() {
             handleFlatNumber={handleFlatNumber}
           />
         )}
-        <h1>Delivery Agent</h1>
+        <Typography variant="h5">Delivery Agent</Typography>
         {selectedAgent ? (
           <Button color="primary" variant="contained">
             {agent}
