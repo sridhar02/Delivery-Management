@@ -11,7 +11,7 @@ function Main() {
     <Router>
       <Switch>
         <Route path="/" component={App} exact />
-        <Route path="/entery" component={Entery} exact />
+        <Route path="/entry" component={Entery} exact />
         <Route path="/handOver" component={HandOver} exact />
       </Switch>
     </Router>

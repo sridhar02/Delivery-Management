@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <h1>Adithya SunShine Delivery Management</h1>
       <div>
-        <Link to="/entery">
+        <Link to="/entry">
           <Button color="primary" variant="contained">
             Entery
           </Button>
