@@ -3,27 +3,6 @@ import { useHistory } from "react-router-dom";
 
 import { Button, makeStyles } from "@material-ui/core";
 
-const useEnteryStyles = makeStyles((theme) => ({
-  submitButton: {
-    margin: theme.spacing(5),
-  },
-  selectedFlat: {
-    display: "flex",
-    justifyContent: "space-around",
-  },
-  clear: {},
-  flatBlock: {
-    margin: theme.spacing(1),
-    fontSize: "20px",
-  },
-  flatNumbers: {
-    margin: theme.spacing(0.6),
-  },
-  agent: {
-    margin: theme.spacing(1),
-  },
-}));
-
 const Blocks = [
   ["A", "B", "C"],
   ["D", "E", "F"],
@@ -46,53 +25,94 @@ const FlatNumbers = [
   [801, 802, 803, 804],
   [805, 806, 807, 808],
 ];
+
 const Agents = ["Amazon", "Flipkat", "express bees", "others"];
 
-function FlatBlocks({ selectedBlock, handleChange, classes }) {
+const useEnteryStyles = makeStyles((theme) => ({
+  submitButton: {
+    margin: theme.spacing(5),
+  },
+  selectedFlat: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  clear: {},
+  flatBlock: {
+    margin: theme.spacing(1),
+    fontSize: "20px",
+  },
+  flatNumbers: {
+    margin: theme.spacing(0.6),
+  },
+  agent: {
+    margin: theme.spacing(1.5),
+  },
+}));
+
+export function FlatBlocks({ handleChange, classes }) {
   return (
     <>
-      {selectedBlock && (
-        <>
-          <h1>FLAT BLOCK </h1>
-          {Blocks.map((blocks, index) => (
-            <div key={index}>
-              {blocks.map((block, index) => (
-                <Button
-                  key={index}
-                  onClick={() => handleChange(block)}
-                  color="primary"
-                  variant="contained"
-                  className={classes.flatBlock}
-                >
-                  {block}
-                </Button>
-              ))}
-            </div>
+      <h1>FLAT BLOCK </h1>
+      {Blocks.map((blocks, index) => (
+        <div key={index}>
+          {blocks.map((block, index) => (
+            <Button
+              key={index}
+              onClick={() => handleChange(block)}
+              color="primary"
+              variant="contained"
+              className={classes.flatBlock}
+            >
+              {block}
+            </Button>
           ))}
-        </>
-      )}
+        </div>
+      ))}
     </>
   );
 }
 
-function Entry() {
+export function FlatNumbersComponent({ handleFlatNumber, classes }) {
+  return (
+    <>
+      <h1>FLAT NUMBER</h1>
+      {FlatNumbers.map((flatNumbers, index) => (
+        <div key={index}>
+          {flatNumbers.map((flatNumber, index) => (
+            <Button
+              key={index}
+              className={classes.flatNumbers}
+              color="primary"
+              onClick={() => handleFlatNumber(flatNumber)}
+              variant="contained"
+            >
+              {flatNumber}
+            </Button>
+          ))}
+        </div>
+      ))}
+    </>
+  );
+}
+
+export default function Entry() {
   const classes = useEnteryStyles();
   const history = useHistory();
   const [flatBlock, setFlatBlock] = React.useState("");
   const [flatNumber, setFlatNumber] = React.useState("");
   const [agent, setAgent] = React.useState("");
-  const [selectedBlock, setSelectedBlock] = React.useState(true);
-  const [selectedFlat, setSelectedFlat] = React.useState(true);
+  const [selectedBlock, setSelectedBlock] = React.useState(false);
+  const [selectedFlat, setSelectedFlat] = React.useState(false);
   const [selectedAgent, setSelectedAgent] = React.useState(false);
 
   const handleChange = (block) => {
     setFlatBlock(block);
-    setSelectedBlock(false);
+    setSelectedBlock(true);
   };
 
   const handleFlatNumber = (event) => {
     setFlatNumber(event);
-    setSelectedFlat(false);
+    setSelectedFlat(true);
   };
 
   const handleAgent = (event) => {
@@ -136,25 +156,14 @@ function Entry() {
         </Button>
       </div>
       <form onSubmit={handleSubmit}>
-        {selectedFlat && (
-          <>
-            <h1>FLAT NUMBER</h1>
-            {FlatNumbers.map((flatNumbers, index) => (
-              <div key={index}>
-                {flatNumbers.map((flatNumber, index) => (
-                  <Button
-                    key={index}
-                    className={classes.flatNumbers}
-                    color="primary"
-                    onClick={() => handleFlatNumber(flatNumber)}
-                    variant="contained"
-                  >
-                    {flatNumber}
-                  </Button>
-                ))}
-              </div>
-            ))}
-          </>
+        {!selectedBlock && (
+          <FlatBlocks handleChange={handleChange} classes={classes} />
+        )}
+        {!selectedFlat && (
+          <FlatNumbersComponent
+            classes={classes}
+            handleFlatNumber={handleFlatNumber}
+          />
         )}
         <h1>Delivery Agent</h1>
         {selectedAgent ? (
@@ -183,5 +192,3 @@ function Entry() {
     </div>
   );
 }
-
-export default Entry;
